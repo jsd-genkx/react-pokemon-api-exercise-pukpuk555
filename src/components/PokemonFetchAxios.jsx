@@ -30,16 +30,32 @@ const PokemonFetchAxios = () => {
     const fetchAllPokemon = async () => {
       try {
         // Fetch initial list of Pokémon
+        const response = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon?limit=151"
+        );
 
+        // console.log(response.data);
         // Sequentially fetch details for each Pokémon
+        const pokemonData = [];
 
+        for (const pokemon of response.data.results) {
+          // console.log(pokemon);
+          const res = await axios(pokemon.url);
+
+          pokemonData.push(res.data);
+        }
+        console.log(pokemonData);
         // Update the state with the detailed Pokémon data
-
+        setPokemonList(pokemonData);
+      } catch (error) {
+        console.error("Fecth Failed");
+      }
     };
-// invoke function
+    // invoke function
 
+    fetchAllPokemon();
   }, []);
-
+  // console.log(pokemonList);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h1 className="text-4xl font-bold mb-6">Pokemon List</h1>
@@ -50,11 +66,34 @@ const PokemonFetchAxios = () => {
               {pokemon.name}
               {/* {console.log(pokemon)} */}
             </h2>
-            <img
-              src={pokemon.sprites.front_default}
-              alt={pokemon.name}
-              className="w-32 h-32 mx-auto mb-2"
-            />
+            <div className="flex">
+              <div>
+                <div className="flex">
+                  <img
+                    src={pokemon.sprites.front_default}
+                    alt={pokemon.name}
+                    className="w-32 h-32 mx-auto mb-2"
+                  />
+                  <img
+                    src={pokemon.sprites.back_default}
+                    alt={pokemon.name}
+                    className="w-32 h-32 mx-auto mb-2"
+                  />
+                </div>
+                <div className="flex">
+                  <img
+                    src={pokemon.sprites.front_shiny}
+                    alt={pokemon.name}
+                    className="w-32 h-32 mx-auto mb-2"
+                  />
+                  <img
+                    src={pokemon.sprites.back_shiny}
+                    alt={pokemon.name}
+                    className="w-32 h-32 mx-auto mb-2"
+                  />
+                </div>
+              </div>
+            </div>
             <div className="flex justify-center">
               {pokemon.types.map((typeInfo) => (
                 <span
