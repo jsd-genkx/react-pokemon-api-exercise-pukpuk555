@@ -6,15 +6,23 @@ const PokemonBasicFetch = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPokemon = async () => {
+    const fetchPokemonData = async () => {
       try {
-        // fetch data from api
-
-
-        // handle data
-
-    // invoke function
-
+        const response = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?limit=10"
+        );
+        if (!response.ok) {
+          throw new Error("Fetch Failed");
+        }
+        const data = await response.json();
+        setPokemonData(data.results);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPokemonData();
   }, []);
 
   if (loading) {

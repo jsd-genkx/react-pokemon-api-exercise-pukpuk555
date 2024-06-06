@@ -1,8 +1,8 @@
 import PokemonBasicFetch from "./components/PokemonBasicFetch";
-import PokemonBasicFetchAxios from "./components/PokemonBasicFetchAxios";
-import PokemonFetch from "./components/PokemonFetch";
-import PokemonFetchAxios from "./components/PokemonFetchAxios";
-import PokemonSearchFetch from "./components/PokemonSearchFetch";
+// import PokemonBasicFetchAxios from "./components/PokemonBasicFetchAxios";
+// import PokemonFetch from "./components/PokemonFetch";
+// import PokemonFetchAxios from "./components/PokemonFetchAxios";
+// import PokemonSearchFetch from "./components/PokemonSearchFetch";
 
 const App = () => {
   return (
